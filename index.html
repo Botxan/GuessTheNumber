@@ -13,6 +13,7 @@
 		<input id="guessNumber" class="guessNumber" type="text" name="guessNumber" placeholder="Type your number here">
 		<button id="checkbutton" class="checkbutton" onclick="check()">Check</button>
 
+		<div id="register"></div>
 		<div id="results">
 			<p id="lastResult"></p>
 			<p id="lowOrHi"></p>
@@ -26,6 +27,7 @@
 		var randomNumber;
 		var guessNumberGet = document.getElementById("guessNumber");
 		var checkbutton = document.getElementById("checkbutton");
+		var register = document.getElementById("register");
 		var lastResult = document.getElementById("lastResult");
 		var lowOrHi = document.getElementById("lowOrHi");
 		var getReset = document.getElementById("resetButton");
@@ -78,6 +80,8 @@
 			checkbutton.onclick = "reset()";
 		}
 
+		var resetButton;
+
 		function resetAppend() {
 			var resetButton = document.createElement("input");
 			resetButton.type = "button";
@@ -85,6 +89,7 @@
 			document.getElementById("resetButton").appendChild(resetButton);
 			resetButton.id = "resetButton";
 			resetButton.style.marginTop = "20px";
+			resetButton.style.display = "inline";
 			resetButton.addEventListener('click', reset);
 		}
 
@@ -96,7 +101,7 @@
 			lowOrHi.innerHTML = "";
 			video1.parentNode.removeChild(video1);
 			console.log("Hey, im just chilling");
-			getReset.parentNode.removeChild(getReset);
+			resetButton.style.display = "none";
 			attempts = 1;
 			generateRandomNum();
 		}
