@@ -86,7 +86,7 @@
 			resetButton.style.marginTop = "20px";
 			resetButton.addEventListener('click', reset);
 		}
-
+		var getReset = document.getElementById("resetButton");
 		function reset() {
 			guessNumberGet.placeholder = "Type your number here";
 			guessNumberGet.disabled = false;
@@ -95,7 +95,7 @@
 			lowOrHi.innerHTML = "";
 			video1.parentNode.removeChild(video1);
 			console.log("Hey, im just chilling");
-			resetButton.parentNode.removeChild(resetButton);
+			getReset.parentNode.removeChild(getReset);
 			attempts = 1;
 			generateRandomNum();
 		}
