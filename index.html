@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Guess the number</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Permanent+Marker|Satisfy" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<h1 class="maintitle">Guess the number</h1>
+		<p class="description">A random number between 1 and 100 is going to be generated. Try to guess it!<br><br>
+
+		<input id="guessNumber" class="guessNumber" type="text" name="guessNumber" placeholder="Type your number here">
+		<button id="checkbutton" class="checkbutton" onclick="check()">Check</button>
+
+		<div id="results">
+			<p id="lastResult"></p>
+			<p id="lowOrHi"></p>
+		<div id="video"></div>
+		<div id="resetButton"></div>
+			
+		</div>
+	</div>
+
+	<script>
+		var randomNumber;
+		var guessNumberGet = document.getElementById("guessNumber");
+		var checkbutton = document.getElementById("checkbutton");
+		var lastResult = document.getElementById("lastResult");
+		var lowOrHi = document.getElementById("lowOrHi");
+		var getReset = document.getElementById("resetButton");
+		var video1 = document.getElementById("video");
+		var attempts = 1;
+
+
+		function generateRandomNum() {
+			randomNumber = Math.floor( Math.random() * 100 ) + 1;
+			return randomNumber;
+		} generateRandomNum();
+
+
+		function check() {
+			guessNumber = Number(guessNumberGet.value)
+			document.getElementById("guessNumber").value = "";
+			console.log(guessNumber);
+			if ( randomNumber === guessNumber ) {
+				lastResult.innerHTML = "CORRECT!";
+				lowOrHi.innerHTML = " ";
+				gameOver();	
+				video();
+				resetAppend();
+			} else if (attempts === 10) {
+				lastResult.innerHTML = "GAME OVER!!!";
+				lowOrHi.innerHTML = " ";
+				gameOver();	
+				resetAppend();			
+			} else if ( guessNumber > 100 ) {
+				lastResult.innerHTML = "Wrong!";
+				lowOrHi.innerHTML = "You have to write a number between 1 and 100";
+			} else if ( randomNumber != guessNumber ) {
+				lastResult.innerHTML = "Wrong!";
+
+					if ( randomNumber < guessNumber ) {
+						lowOrHi.innerHTML = "That was very high!";
+						attempts++;
+					} else if ( randomNumber > guessNumber ) {
+						lowOrHi.innerHTML = "That was very low!";
+						attempts++;
+					}
+			}
+		} 
+
+		function gameOver() {
+			guessNumberGet.value = "";
+			guessNumberGet.placeholder = "";
+			guessNumberGet.disabled = true;
+			checkbutton.disabled = true;
+			checkbutton.onclick = "reset()";
+		}
+
+		function resetAppend() {
+			var resetButton = document.createElement("input");
+			resetButton.type = "button";
+			resetButton.value = "Reset game"
+			document.getElementById("resetButton").appendChild(resetButton);
+			resetButton.id = "resetButton";
+			resetButton.style.marginTop = "20px";
+			resetButton.addEventListener('click', reset);
+		}
+
+		function reset() {
+			guessNumberGet.placeholder = "Type your number here";
+			guessNumberGet.disabled = false;
+			checkbutton.disabled = false;
+			lastResult.innerHTML = "";
+			lowOrHi.innerHTML = "";
+			video1.parentNode.removeChild(video1);
+			console.log("Hey, im just chilling");
+			getReset.parentNode.removeChild(getReset);
+			attempts = 1;
+			generateRandomNum();
+		}
+
+		function video()  {
+			var video = document.createElement("video");
+			video.src = "videos/Correcto.mp4";
+			video.type = "video/mp4";
+			video.autoplay = true;
+			video.style.width = "50%";
+			video.style.border = "1px solid white";
+			video.style.borderRadius = "10px";
+			document.getElementById("video").appendChild(video);
+		}
+
+		 guessNumberGet.addEventListener("keypress", function check2(element) {
+		 	if ( element.keyCode === 13) {
+		 		check();
+		 	}
+		 });
+
+
+	</script>
+</body>
+</html>
